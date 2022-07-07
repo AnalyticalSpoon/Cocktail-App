@@ -20,7 +20,6 @@ export class CocktailAddFormComponent implements OnInit {
     family: [''],
     directions: ['', [Validators.required]],
     ingredients: this.fb.array([], [Validators.required]),
-    picture: [null],
   });
 
   constructor(
