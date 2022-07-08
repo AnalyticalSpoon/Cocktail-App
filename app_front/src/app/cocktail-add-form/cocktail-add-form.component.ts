@@ -5,6 +5,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { concatMap, switchMap } from 'rxjs';
 import { CocktailsDataService } from '../cocktails-data.service';
 import { Cocktail } from '../interfaces/cocktail';
 
@@ -20,7 +21,10 @@ export class CocktailAddFormComponent implements OnInit {
     family: [''],
     directions: ['', [Validators.required]],
     ingredients: this.fb.array([], [Validators.required]),
+    picture: [''],
   });
+
+  picture?: File;
 
   constructor(
     private fb: FormBuilder,
@@ -55,12 +59,37 @@ export class CocktailAddFormComponent implements OnInit {
 
   public submitCocktail() {
     if (this.cocktailForm.valid) {
-      this.cocktailService
-        .addCocktail(this.cocktailForm.value)
-        .subscribe((cocktail: Cocktail) => {
-          this.resetForm();
-        });
+      if (this.picture) {
+        let cocktail = this.cocktailForm.value;
+        this.cocktailService
+          .uploadPicture(this.picture)
+          .pipe(
+            switchMap((response) => {
+              console.log(`Inside switchMap: ${JSON.stringify(response)}`);
+              try {
+                cocktail.picture = response.url;
+              } catch (error) {
+                console.error(error);
+              }
+              return this.cocktailService.addCocktail(cocktail);
+            })
+          )
+          .subscribe((cocktail) => {
+            this.resetForm();
+          });
+      } else {
+        this.cocktailService
+          .addCocktail(this.cocktailForm.value)
+          .subscribe((cocktail: Cocktail) => {
+            this.resetForm();
+          });
+      }
     }
+  }
+
+  public prepareUpload($event: any) {
+    this.picture = $event.target.files[0];
+    console.log(this.picture);
   }
 
   private resetForm(): void {

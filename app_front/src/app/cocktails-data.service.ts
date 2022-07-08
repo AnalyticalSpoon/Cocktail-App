@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, of } from 'rxjs';
 import { Cocktail } from './interfaces/cocktail';
+import { FilestackResponse } from './filestack';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,21 @@ export class CocktailsDataService {
       .pipe(
         catchError(
           this.handleError<Cocktail>(`addCocktail formData=${formData}`)
+        )
+      );
+  }
+
+  public uploadPicture(file: File): Observable<FilestackResponse> {
+    return this.http
+      .post<FilestackResponse>(
+        'https://www.filestackapi.com/api/store/S3?key=Am5JkdXjxTQSK424sKxf4z',
+        file
+      )
+      .pipe(
+        catchError(
+          this.handleError<FilestackResponse>(
+            `error while uploading file: ${file}`
+          )
         )
       );
   }

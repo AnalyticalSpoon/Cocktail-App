@@ -28,7 +28,8 @@ const cocktailSchema = new mongoose.Schema({
   ingredients: {
     type: [ingredientSchema],
     required: true
-  }
+  },
+  picture: String
 });
 
 // compile schema

@@ -47,7 +47,8 @@ const cocktailsCreate = (req, res) => {
     ...(req.body.description) && { description: req.body.description },
     ...(req.body.family) && { family: req.body.family },
     ingredients: req.body.ingredients,
-    directions: req.body.directions
+    directions: req.body.directions,
+    ...(req.body.picture) && { picture: req.body.picture }
   };
 
   Cocktail.create(cocktail,
