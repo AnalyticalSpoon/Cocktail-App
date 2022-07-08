@@ -10,4 +10,5 @@ export interface Cocktail {
   family?: string;
   ingredients: Ingredient[];
   directions: string;
+  picture: string;
 }

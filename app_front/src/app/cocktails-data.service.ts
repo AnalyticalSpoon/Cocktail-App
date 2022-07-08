@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, of } from 'rxjs';
 import { Cocktail } from './interfaces/cocktail';
-import { FilestackResponse } from './filestack';
+import { FilestackResponse } from './interfaces/filestack';
 
 @Injectable({
   providedIn: 'root',

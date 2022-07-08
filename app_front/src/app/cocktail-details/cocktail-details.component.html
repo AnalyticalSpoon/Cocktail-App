@@ -1,32 +1,35 @@
-<div *ngIf="cocktail" class="container">
-  <div class="row justify-content-center">
-    <div class="card col-md-8">
-      <div class="card-body">
-        <h2 class="card-title">{{ cocktail.name | uppercase }}</h2>
-        <h5 *ngIf="cocktail.family" class="card-subtitle text-muted mb-2">
-          {{ cocktail.family | lowercase }}
-        </h5>
-        <p *ngIf="cocktail.description" class="card-text">
-          {{ cocktail.description }}
-        </p>
-        <h4 class="card-title">Ingrédients</h4>
-        <div class="card-text">
-          <ul class="list-group list-group-flush">
-            <li
-              *ngFor="let ingredient of cocktail.ingredients"
-              class="list-group-item hstack gap-3"
-            >
-              <span>{{ ingredient.name }}</span>
-              <span *ngIf="ingredient.quantity" class="ms-auto">{{
-                ingredient.quantity
-              }}</span>
-              <span *ngIf="ingredient.unit">{{ ingredient.unit }}</span>
-            </li>
-          </ul>
-        </div>
-        <h4 class="card-title">Instructions</h4>
-        <p class="card-text">{{ cocktail.directions }}</p>
-      </div>
+<div *ngIf="cocktail" class="card">
+  <img
+    [src]="
+      cocktail.picture ? cocktail.picture : '/assets/images/placeholder.jpg'
+    "
+    class="card-img-top rounded cocktail-picture"
+    alt="..."
+  />
+  <div class="card-body">
+    <h2 class="card-title">{{ cocktail.name | uppercase }}</h2>
+    <h5 *ngIf="cocktail.family" class="card-subtitle text-muted mb-2">
+      {{ cocktail.family | lowercase }}
+    </h5>
+    <p *ngIf="cocktail.description" class="card-text">
+      {{ cocktail.description }}
+    </p>
+    <h4 class="card-title">Ingrédients</h4>
+    <div class="card-text">
+      <ul class="list-group list-group-flush">
+        <li
+          *ngFor="let ingredient of cocktail.ingredients"
+          class="list-group-item hstack gap-3"
+        >
+          <span>{{ ingredient.name }}</span>
+          <span *ngIf="ingredient.quantity" class="ms-auto">{{
+            ingredient.quantity
+          }}</span>
+          <span *ngIf="ingredient.unit">{{ ingredient.unit }}</span>
+        </li>
+      </ul>
     </div>
+    <h4 class="card-title">Instructions</h4>
+    <p class="card-text">{{ cocktail.directions }}</p>
   </div>
 </div>

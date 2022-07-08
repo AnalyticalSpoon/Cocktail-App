@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CocktailsDataService } from '../cocktails-data.service';
 import { Cocktail } from '../interfaces/cocktail';
 
 @Component({
@@ -10,11 +9,7 @@ import { Cocktail } from '../interfaces/cocktail';
 export class CocktailDetailsComponent implements OnInit {
   @Input() cocktail!: Cocktail;
 
-  constructor(private cocktailsService: CocktailsDataService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.cocktailsService
-      .getCocktails()
-      .subscribe((cocktails) => (this.cocktail = cocktails[0]));
-  }
+  ngOnInit(): void {}
 }
